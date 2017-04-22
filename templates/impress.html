@@ -28,12 +28,10 @@
   {% endfor %}
   <div id="overview" class="step" data-x="0" data-y="0" data-z="0" data-scale="7">
   </div>
-
-  {% if release %}
-    <script src="static/script/impress.min.js"></script>
-  {% else %}
+  <script src="static/script/impress.min.js"></script>
+  {% if not release %}
+    {#    <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>#}
     <script src="{% static 'script/jquery-3.2.1.min.js' %}"></script>
-    <script src="static/script/impress.js"></script>
   {% endif %}
   <script>
       impress().init();
