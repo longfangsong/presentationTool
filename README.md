@@ -27,6 +27,7 @@ Unzip the archive you download, you'll see:
 ![result1_image](./readme_image/result_1.png)
 
 ![result_image](./readme_image/result_2.png)
+
 Now on any platform with a modern browser, you can just click the 'index.html' and display the pretty presentation you have made.
 ![demo_image](./readme_image/demo.png)
 8. If you want to start a new presentation, click the new page button.
