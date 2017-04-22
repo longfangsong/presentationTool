@@ -21,8 +21,10 @@ And click Edit.You'll see the edited page.
 ![remove_page_image](./readme_image/remove_page.png)
 7. After all the work is done, click the download button to download.
 ![download_image](./readme_image/download.png)
+
 Unzip the archive you download, you'll see:
 ![result1_image](./readme_image/result_1.png)
+
 ![result_image](./readme_image/result_2.png)
 Now on any platform with a modern browser, you can just click the 'index.html' and display the pretty presentation you have made.
 ![demo_image](./readme_image/demo.png)
