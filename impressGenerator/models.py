@@ -1,4 +1,5 @@
 import os
+from html import escape
 
 from django.db import models
 
@@ -18,7 +19,9 @@ class Page(models.Model):
     @property
     def rendered(self):
         # todo:add some rendering code in the future
-        return self.page_src
+        ret = escape(self.page_src)
+        ret = ret.replace(' ', '&nbsp;')
+        return ret
 
     def __str__(self):
         ret = '(' + str(self.x) + ',' + str(self.y) + ',' + str(self.z) + ')'

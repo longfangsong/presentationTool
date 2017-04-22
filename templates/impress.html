@@ -21,7 +21,9 @@
          data-rotate-z="{{ page.rz }}"
          data-scale="{{ page.scale }}"
          data-raw-content="{{ page.page_src }}">
-      {{ page.rendered }}
+      {% autoescape off %}
+        {{ page.rendered }}
+      {% endautoescape %}
     </div>
   {% endfor %}
   <div id="overview" class="step" data-x="0" data-y="0" data-z="0" data-scale="7">
