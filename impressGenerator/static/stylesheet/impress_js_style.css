@@ -15,7 +15,7 @@ body {
   position: relative;
   text-align: center;
   box-sizing: border-box;
-
+  width: 50%;
   font-family: 'PT Serif', georgia, serif;
   font-size: 48px;
   line-height: 1.5;
