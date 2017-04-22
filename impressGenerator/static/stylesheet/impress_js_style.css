@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+body {
+  font-family: 'PT Sans', sans-serif;
+  background: radial-gradient(rgb(240, 240, 240), rgb(190, 190, 190));
+}
+
+.step {
+  position: relative;
+  text-align: center;
+  box-sizing: border-box;
+
+  font-family: 'PT Serif', georgia, serif;
+  font-size: 48px;
+  line-height: 1.5;
+}

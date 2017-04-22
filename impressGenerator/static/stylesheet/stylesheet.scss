@@ -1,0 +1,196 @@
+@import "control-panel-image";
+
+$side-bar-width: 300px;
+$side-bar-color: #6699CC;
+#control-panel {
+  position: fixed;
+  width: $side-bar-width;
+  height: 100%;
+  right: -$side-bar-width;
+  transition: all .5s;
+  &.expanded {
+    right: 0;
+  }
+  background: adjust_color($side-bar-color, $alpha: -0.2);
+  text-align: center;
+  padding: 20px;
+  .input-group {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .input-group-addon {
+    background: adjust_color(floralwhite, $alpha: -0.7);
+    color: white;
+    border: 1px solid white;
+  }
+  .form-control, .custom-select {
+    border: 1px solid white;
+    border-left: none;
+    background: transparent;
+    color: white;
+  }
+  #content {
+    max-height: 150px;
+    min-height: 150px;
+  }
+  #title-page {
+    // A silly patch
+    // fix the ugly <select> in
+    // -webkit- based browsers
+    position: relative;
+    left: 4px;
+    margin-left: -4px;
+    z-index: 100;
+    width: 67px;
+    background: rgb(164, 190, 216);
+  }
+  .custom-select {
+    background: transparent url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23333' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E") no-repeat right .75rem center;
+    background-size: 8px 10px;
+    width: 100%;
+  }
+  #presentation-name-wrapper.input-group {
+    display: block;
+    position: fixed;
+    left: -200px;
+    top: 0;
+    margin: 0;
+    padding-left: 10px;
+    padding-top: 10px;
+    background: transparent;
+    width: auto;
+    transition: all .5s;
+    #title-presentation-name {
+      max-width: 180px;
+      display: block;
+      background: transparent;
+      border: none;
+      text-align: left;
+      padding: 0;
+      font-size: 10pt;
+    }
+    #presentation-name {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      border-bottom: white solid 2px;
+      outline: none;
+      color: white;
+    }
+  }
+  &.expanded #presentation-name-wrapper {
+    left: 0;
+  }
+  .button-wrapper {
+    text-align: center;
+  }
+}
+
+#toggle-control-panel {
+  position: fixed;
+  width: 50px;
+  height: 40px;
+  right: 0;
+  background: adjust_color($side-bar-color, $alpha: -0.7);
+  opacity: 0.5;
+  transition: all 0.5s;
+  &.on:hover, &:hover {
+    cursor: pointer;
+    background: $side-bar-color;
+  }
+  &.on {
+    right: $side-bar-width;
+    opacity: 1;
+    background: adjust_color($side-bar-color, $alpha: -0.2);
+  }
+}
+
+#impress-frame {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  border: none;
+}
+
+#control-left {
+  position: fixed;
+  top: 30vh;
+  left: -50px;
+  transition: all 0.5s;
+  &.expanded {
+    left: 0;
+  }
+  a {
+    display: block;
+    margin-bottom: 4px;
+    img {
+      opacity: 0.4;
+      height: 40px;
+      width: 48px;
+      background: #8f8f8f;
+      padding-top: 6px;
+      padding-bottom: 6px;
+      transition: all 0.5s;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      &:hover {
+        cursor: pointer;
+        opacity: 0.6;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 760px) {
+  #control-panel {
+    &.expanded {
+      top: 0;
+      left: 0;
+    }
+    top: -100%;
+    left: 0;
+    width: 100%;
+    text-align: left;
+    overflow: scroll;
+    #presentation-name-wrapper.input-group {
+      position: static;
+    }
+    #control-left {
+      top: -50px;
+      &.expanded {
+        top: 0;
+      }
+      width: 100%;
+      position: absolute;
+      a {
+        position: absolute;
+        img {
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 5px;
+          border-bottom-left-radius: 5px;
+        }
+        &:first-of-type {
+          right: 110px;
+        }
+        &:last-of-type {
+          right: 60px;
+        }
+      }
+    }
+  }
+  #toggle-control-panel {
+    margin-top: -20px;
+    position: fixed;
+    right: 0;
+    top: 20px;
+    z-index: 1;
+    &.on {
+      position: absolute;
+      right: 0;
+    }
+  }
+
+}

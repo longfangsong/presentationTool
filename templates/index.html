@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  {% if the_presentation.name %}
+    <title>impress.js presentation generator - {{ the_presentation.name }}</title>
+  {% else %}
+    <title>impress.js presentation generator</title>
+  {% endif %}
+  {% load staticfiles %}
+  <link href="{% static 'stylesheet/bootstrap.min.css' %}" rel="stylesheet">
+  {#  <link href="//cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">#}
+  <link href="{% static 'stylesheet/stylesheet.css' %}" rel="stylesheet">
+</head>
+<body>
+<div id="toggle-control-panel" class="on">
+  <div class="menu">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+  </div>
+</div>
+<div id="control-panel" class="expanded">
+  <div id="control-left" class="expanded">
+    <a id="new-presentation" href="{% url 'new-presentation' %}"><img
+            src="{% static 'image/new-presentation.svg' %}"></a>
+    <a id="download" href="{% url 'download' the_presentation.id %}"><img src="{% static 'image/download.svg' %}"></a>
+  </div>
+  <form id="page-info-form">
+    {% csrf_token %}
+    <div class="input-group" id="presentation-name-wrapper">
+      <div class="input-group-addon" id="title-presentation-name">Presentation name</div>
+      <input type="text" name="presentation-name" id="presentation-name" title="Name of the presentation">
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon" id="title-content">Content</span>
+      <textarea id="content" name="content" class="form-control"
+                aria-describedby="title-content" title="Please enter content of the page"></textarea>
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon" id="title-page">Page</span>
+      <select class="custom-select" id="page-select" title="Please select a page to edit" name="page-select">
+        {% for page in the_presentation.page_set.all %}
+          <option value="{{ page.page_order }}">{{ page.summary }}</option>
+        {% endfor %}
+        <option value="-1" selected id="new-page">new page</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon" id="title-x">x</span>
+      <input type="number" step="100" name="x" id="x" class="form-control"
+             aria-describedby="title-x" title="Please enter the x coordinate for the page">
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon" id="title-y">y</span>
+      <input type="number" step="100" name="y" id="y" class="form-control"
+             aria-describedby="title-y" title="Please enter the y coordinate for the page">
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon" id="title-z">z</span>
+      <input type="number" step="100" name="z" id="z" class="form-control"
+             aria-describedby="title-z" title="Please enter the z coordinate for the page">
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon" id="title-rx">rx</span>
+      <input type="number" step="15" min="0" max="360" name="rx"
+             id="rx" class="form-control"
+             aria-describedby="title-rx" title="Please enter the x rotation for the page">
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon" id="title-ry">ry</span>
+      <input type="number" step="15" min="0" max="360" name="ry"
+             id="ry" class="form-control"
+             aria-describedby="title-ry" title="Please enter the y rotation for the page">
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon" id="title-rz">rz</span>
+      <input type="number" step="15" min="0" max="360" name="rz"
+             id="rz" class="form-control"
+             aria-describedby="title-rz" title="Please enter the z rotation for the page">
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon" id="title-scale">scale</span>
+      <input type="number" name="scale" min="1"
+             id="scale" class="form-control"
+             aria-describedby="title-scale" title="Please enter the scale value for the page">
+    </div>
+    <div class="button-wrapper">
+      <button id="add-or-edit-page" class="btn btn-primary">Add</button>
+      <button id="remove-page" class="btn btn-danger">Remove</button>
+    </div>
+  </form>
+</div>
+<iframe id="impress-frame" name="impress-frame"
+        srcdoc="{{ render_content }}"
+        sandbox="allow-scripts allow-same-origin">
+
+</iframe>
+<script src="{% static 'script/jquery-3.2.1.min.js' %}"></script>
+{#<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>#}
+<script>
+    $(function () {
+        $('#presentation-name').val('{{ the_presentation.name }}');
+    });
+    $('#toggle-control-panel').click(function () {
+        $('#control-panel').toggleClass('expanded');
+        $('#control-left').toggleClass('expanded');
+        $(this).toggleClass('on');
+    });
+    $('#add-or-edit-page').click(function () {
+        var to_post = $('#page-info-form').serializeArray();
+        var is_all_empty = true;
+        for (var element_to_post in to_post) {
+            if (to_post.hasOwnProperty(element_to_post)) {
+                if (['title-content', 'page-select', 'csrfmiddlewaretoken'].indexOf(to_post[element_to_post].name) === -1 && to_post[element_to_post].value !== '') {
+                    is_all_empty = false;
+                    break;
+                }
+            }
+        }
+        if (!is_all_empty) {
+            to_post[to_post.length] = {
+                name: 'last_page',
+                value: $('#impress-frame').get(0).contentWindow.currrent_page_id()
+            };
+            if ($('#add-or-edit-page').text() === 'Add') {
+                $.post('{% url 'add-page' %}', to_post, function (ret) {
+                    $('#impress-frame').attr('srcdoc', ret.page_content);
+                    $('<option value="' + ret.page_id + '">' + ret.page_summary + '</option>').insertBefore($('#new-page'));
+                    return false;
+                });
+                $('.form-control').val('');
+            } else {
+                $.post('{% url 'edit-page' %}', to_post, function (ret) {
+                    $('#impress-frame').attr('srcdoc', ret.page_content);
+                    $('option[value=' + ret.page_id + ']').text(ret.page_summary);
+                    return false;
+                });
+            }
+        }
+        return false;
+    });
+    $('#page-select').change(function () {
+        if ($(this).val() === '-1') {
+            $('#add-or-edit-page').text('Add');
+            $('.form-control').val('');
+        } else {
+            console.log($(this).val());
+            const the_page = $('#impress-frame').get(0).contentWindow;
+            the_page.focus($(this).val());
+            const pos = the_page.get_page_position($(this).val());
+            for (var ele in pos) {
+                if (pos.hasOwnProperty(ele)) {
+                    $('#' + String(ele)).val(pos[ele]);
+                }
+            }
+            $('#add-or-edit-page').text('Edit');
+        }
+    });
+    $('#remove-page').click(function () {
+        $.post('{% url "remove-page" %}', $('#page-info-form').serializeArray(), function (ret) {
+            $('#impress-frame').attr('srcdoc', ret.page_content);
+        });
+    });
+    $('#presentation-name').keyup(function () {
+        if ($(this).val() === '') {
+            $('title').text('impress.js presentation generator')
+        } else {
+            $('title').text('impress.js presentation generator - ' + $(this).val());
+        }
+    });
+</script>
+</body>
+</html>

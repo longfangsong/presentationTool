@@ -1,0 +1,5 @@
+impressGenerator/static/* linguist-vendored
+impressGenerator/static/stylesheet/stylesheet.scss linguist-vendored=false
+impressGenerator/static/stylesheet/_control-panel-image.scss linguist-vendored=false
+impressGenerator/static/stylesheet/stylesheet.css linguist-vendored=false
+impressGenerator/static/stylesheet/impress_js_style.css linguist-vendored=false

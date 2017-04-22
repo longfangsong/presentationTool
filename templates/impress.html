@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>{{ presentation.name }}</title>
+  {% load staticfiles %}
+  {% if release %}
+    <link href="static/stylesheet/impress_js_style.css" rel="stylesheet">
+  {% else %}
+    <link href="{% static 'stylesheet/impress_js_style.css' %}" rel="stylesheet">
+  {% endif %}
+</head>
+<body>
+<div id="impress" ontouchend="impress().next()">
+  {% for page in presentation.page_set.all %}
+    <div id="step-{{ page.page_order }}" class="step"
+         data-x="{{ page.x }}" data-y="{{ page.y }}" data-z="{{ page.z }}"
+         data-rotate-x="{{ page.rx }}"
+         data-rotate-y="{{ page.ry }}"
+         data-rotate-z="{{ page.rz }}"
+         data-scale="{{ page.scale }}"
+         data-raw-content="{{ page.page_src }}">
+      {{ page.rendered }}
+    </div>
+  {% endfor %}
+  <div id="overview" class="step" data-x="0" data-y="0" data-z="0" data-scale="7">
+  </div>
+
+  {% if release %}
+    <script src="static/script/impress.min.js"></script>
+  {% else %}
+    <script src="{% static 'script/jquery-3.2.1.min.js' %}"></script>
+    <script src="static/script/impress.js"></script>
+  {% endif %}
+  <script>
+      impress().init();
+      {% if not release %}
+          impress().goto('step-' + '{{ last_focus_page_id }}');
+          function focus(page_id) {
+              window.setTimeout(function () {
+                  impress().goto('step-' + String(page_id));
+              }, 1);
+          }
+          focus({{ focus_page_id }});
+          function currrent_page_id() {
+              return $('.present').attr('id');
+          }
+          function get_page_position(page_id) {
+              const $present = $('#step-' + String(page_id));
+              return {
+                  'x': $present.attr('data-x'),
+                  'y': $present.attr('data-y'),
+                  'z': $present.attr('data-z'),
+                  'rx': $present.attr('data-rotate-x'),
+                  'ry': $present.attr('data-rotate-y'),
+                  'rz': $present.attr('data-rotate-z'),
+                  'scale': $present.attr('data-scale'),
+                  'content': $present.attr('data-raw-content')
+              }
+          }
+      {% endif %}
+  </script>
+</div>
+</body>
+</html>
