@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+{% load i18n %}
+<html lang="{% trans 'en' %}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   {% if the_presentation.name %}
-    <title>impress.js presentation generator - {{ the_presentation.name }}</title>
+    <title>{% trans 'impress.js presentation generator' %} - {{ the_presentation.name }}</title>
   {% else %}
-    <title>impress.js presentation generator</title>
+    <title>{% trans 'impress.js presentation generator' %}</title>
   {% endif %}
   {% load staticfiles %}
   <link rel="icon" href="{% static 'image/favicon.ico' %}">
@@ -35,16 +36,16 @@
   <form id="page-info-form">
     {% csrf_token %}
     <div class="input-group" id="presentation-name-wrapper">
-      <div class="input-group-addon" id="title-presentation-name">Presentation name</div>
+      <div class="input-group-addon" id="title-presentation-name">{% trans 'Presentation name' %}</div>
       <input type="text" name="presentation-name" id="presentation-name" title="Name of the presentation">
     </div>
     <div class="input-group">
-      <span class="input-group-addon" id="title-content">Content</span>
+      <span class="input-group-addon" id="title-content">{% trans 'Content' %}</span>
       <textarea id="content" name="content" class="form-control"
                 aria-describedby="title-content" title="Please enter content of the page"></textarea>
     </div>
     <div class="input-group">
-      <span class="input-group-addon" id="title-page">Page</span>
+      <span class="input-group-addon" id="title-page">{% trans 'Page' %}</span>
       <select class="custom-select" id="page-select" title="Please select a page to edit" name="page-select">
         {% for page in the_presentation.page_set.all %}
           <option value="{{ page.page_order }}">{{ page.summary }}</option>
@@ -92,8 +93,8 @@
              aria-describedby="title-scale" title="Please enter the scale value for the page">
     </div>
     <div class="button-wrapper">
-      <button id="add-or-edit-page" class="btn btn-primary">Add</button>
-      <button id="remove-page" class="btn btn-danger">Remove</button>
+      <button id="add-or-edit-page" class="btn btn-primary">{% trans 'Add' %}</button>
+      <button id="remove-page" class="btn btn-danger">{% trans 'Remove' %}</button>
     </div>
   </form>
 </div>
@@ -129,7 +130,7 @@
                 name: 'last_page',
                 value: $('#impress-frame').get(0).contentWindow.currrent_page_id()
             };
-            if ($('#add-or-edit-page').text() === 'Add') {
+            if ($('#add-or-edit-page').text() === '{% trans 'Add' %}') {
                 $.post('{% url 'add-page' %}', to_post, function (ret) {
                     $('#impress-frame').attr('srcdoc', ret.page_content);
                     $('<option value="' + ret.page_id + '">' + ret.page_summary + '</option>').insertBefore($('#new-page'));
@@ -148,7 +149,7 @@
     });
     $('#page-select').change(function () {
         if ($(this).val() === '-1') {
-            $('#add-or-edit-page').text('Add');
+            $('#add-or-edit-page').text('{% trans 'Add' %}');
             $('.form-control').val('');
         } else {
             console.log($(this).val());
@@ -160,7 +161,7 @@
                     $('#' + String(ele)).val(pos[ele]);
                 }
             }
-            $('#add-or-edit-page').text('Edit');
+            $('#add-or-edit-page').text('{% trans 'Edit' %}');
         }
     });
     $('#remove-page').click(function () {
@@ -170,9 +171,9 @@
     });
     $('#presentation-name').keyup(function () {
         if ($(this).val() === '') {
-            $('title').text('impress.js presentation generator')
+            $('title').text('{% trans 'impress.js presentation generator' %}')
         } else {
-            $('title').text('impress.js presentation generator - ' + $(this).val());
+            $('title').text('{% trans 'impress.js presentation generator' %} - ' + $(this).val());
         }
     });
 </script>
