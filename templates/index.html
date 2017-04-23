@@ -14,8 +14,8 @@
   <link rel="apple-touch-icon" sizes="72x72" href="{% static 'image/apple-touch-icon_72.png' %}">
   <link rel="apple-touch-icon" sizes="57x57" href="{% static 'image/apple-touch-icon_57.png' %}">
   <link rel="apple-touch-icon" href="{% static 'image/apple-touch-icon_114.png' %}">
-{#  <link href="{% static 'stylesheet/bootstrap.min.css' %}" rel="stylesheet">#}
-  <link href="//cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{% static 'stylesheet/bootstrap.min.css' %}" rel="stylesheet">
+  {#  <link href="//cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">#}
   <link href="{% static 'stylesheet/stylesheet.css' %}" rel="stylesheet">
 </head>
 <body>
@@ -102,8 +102,8 @@
         sandbox="allow-scripts allow-same-origin">
 
 </iframe>
-{#<script src="{% static 'script/jquery-3.2.1.min.js' %}"></script>#}
-<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="{% static 'script/jquery-3.2.1.min.js' %}"></script>
+{#<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>#}
 <script>
     $(function () {
         $('#presentation-name').val('{{ the_presentation.name }}');
