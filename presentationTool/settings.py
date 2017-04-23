@@ -86,7 +86,8 @@ else:
             'NAME': 'data',
             'USER': os.environ['MYSQL_USERNAME'],
             'PASSWORD': os.environ['MYSQL_PASSWORD'],
-            'PORT': os.environ['MYSQL_PORT']
+            'HOST': os.environ['MYSQL_PORT_3306_TCP_ADDR'],
+            'PORT': os.environ['MYSQL_PORT_3306_TCP_PORT']
         }
     }
 
