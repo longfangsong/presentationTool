@@ -18,11 +18,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '%uzn0fqhpq4(x8$p+rh8uz-4u9%&4%-hngx!np61xw1k+n&vih'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+if DEBUG:
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = '%uzn0fqhpq4(x8$p+rh8uz-4u9%&4%-hngx!np61xw1k+n&vih'
+else:
+    SECRET_KEY = os.environ['SECRET_KEY']
 
 ALLOWED_HOSTS = ['127.0.0.1', '.daoapp.io']
 
@@ -41,7 +43,6 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -87,7 +88,8 @@ else:
             'NAME': 'data',
             'USER': os.environ['MYSQL_USERNAME'],
             'PASSWORD': os.environ['MYSQL_PASSWORD'],
-            'PORT': os.environ['MYSQL_PORT']
+            'HOST': os.environ['MYSQL_PORT_3306_TCP_ADDR'],
+            'PORT': os.environ['MYSQL_PORT_3306_TCP_PORT']
         }
     }
 
@@ -112,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
