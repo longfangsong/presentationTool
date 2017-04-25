@@ -18,11 +18,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '%uzn0fqhpq4(x8$p+rh8uz-4u9%&4%-hngx!np61xw1k+n&vih'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+if DEBUG:
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = '%uzn0fqhpq4(x8$p+rh8uz-4u9%&4%-hngx!np61xw1k+n&vih'
+else:
+    SECRET_KEY = os.environ['SECRET_KEY']
 
 ALLOWED_HOSTS = ['127.0.0.1', '.daoapp.io']
 
@@ -127,3 +129,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = '/var/www/static'
+
+LANGUAGES = [
+    ('en', 'English'),
+    ('zh-hans', '中文简体')
+]
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'),
+]
