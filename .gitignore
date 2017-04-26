@@ -97,4 +97,4 @@ ENV/
 db.sqlite3
 impressGenerator/static/.DS_Store
 user-file/
-user-achieve/
+user-archive/

@@ -53,6 +53,67 @@
         <option value="-1" selected id="new-page">new page</option>
       </select>
     </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-6" id="animation-in-select-wrapper">
+          <span class="input-group-addon" id="title-animation-in">{% trans 'AnimationIn' %}</span>
+          <select class="custom-select" id="animation-in-select" title="Please select an animationIn"
+                  name="animation-in-select">
+            <option value="none">none</option>
+            <option value="bounce">bounce</option>
+            <option value="flash">flash</option>
+            <option value="pulse">pulse</option>
+            <option value="rubberBand">rubberBand</option>
+            <option value="shake">shake</option>
+            <option value="headShake">headShake</option>
+            <option value="swing">swing</option>
+            <option value="tada">tada</option>
+            <option value="wobble">wobble</option>
+            <option value="jello">jello</option>
+            <option value="hinge">hinge</option>
+          </select>
+        </div>
+        <div class="col-6" id="animation-select-wrapper">
+          <span class="input-group-addon" id="title-animation">{% trans 'Animation' %}</span>
+          <select class="custom-select" id="animation-select" title="Please select an animation"
+                  name="animation-select">
+            <option value="none">none</option>
+            <option value="bounceIn">bounceIn</option>
+            <option value="bounceInDown">bounceInDown</option>
+            <option value="bounceInLeft">bounceInLeft</option>
+            <option value="bounceInRight">bounceInRight</option>
+            <option value="bounceInUp">bounceInUp</option>
+            <option value="fadeIn">fadeIn</option>
+            <option value="fadeInDown">fadeInDown</option>
+            <option value="fadeInDownBig">fadeInDownBig</option>
+            <option value="fadeInLeft">fadeInLeft</option>
+            <option value="fadeInLeftBig">fadeInLeftBig</option>
+            <option value="fadeInRight">fadeInRight</option>
+            <option value="fadeInRightBig">fadeInRightBig</option>
+            <option value="fadeInUp">fadeInUp</option>
+            <option value="fadeInUpBig">fadeInUpBig</option>
+            <option value="flipInX">flipInX</option>
+            <option value="flipInY">flipInY</option>
+            <option value="lightSpeedIn">lightSpeedIn</option>
+            <option value="rotateIn">rotateIn</option>
+            <option value="rotateInDownLeft">rotateInDownLeft</option>
+            <option value="rotateInDownRight">rotateInDownRight</option>
+            <option value="rotateInUpLeft">rotateInUpLeft</option>
+            <option value="rotateInUpRight">rotateInUpRight</option>
+            <option value="rollIn">rollIn</option>
+            <option value="zoomIn">zoomIn</option>
+            <option value="zoomInDown">zoomInDown</option>
+            <option value="zoomInLeft">zoomInLeft</option>
+            <option value="zoomInRight">zoomInRight</option>
+            <option value="zoomInUp">zoomInUp</option>
+            <option value="slideInDown">slideInDown</option>
+            <option value="slideInLeft">slideInLeft</option>
+            <option value="slideInRight">slideInRight</option>
+            <option value="slideInUp">slideInUp</option>
+          </select>
+        </div>
+      </div>
+    </div>
     <div class="input-group">
       <span class="input-group-addon" id="title-x">x</span>
       <input type="number" step="100" name="x" id="x" class="form-control"

@@ -1,6 +1,6 @@
 @import "control-panel-image";
 
-$side-bar-width: 300px;
+$side-bar-width: 400px;
 $side-bar-color: #6699CC;
 #control-panel {
   position: fixed;
@@ -83,6 +83,26 @@ $side-bar-color: #6699CC;
   }
   .button-wrapper {
     text-align: center;
+  }
+  .container {
+    padding: 0;
+  }
+  .row .input-group-addon {
+    display: inline-block;
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+  .row select {
+    width: 80px;
+    margin-left: -5px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  #animation-in-select-wrapper {
+    padding-right: 0;
+  }
+  #animation-select-wrapper {
+    padding-left: 0;
   }
 }
 
